@@ -13,8 +13,6 @@ def button_click(event):
         entry.insert(tk.END,res)#計算結果
     elif num == "AC":
         entry.delete(0,tk.END)#表示文字列全て削除
-    elif num == "C":
-        entry.delete(tk.END,-1)
     else: #「=」以外のボタン字
         #tkm.showinfo("", f"{num}ボタンがクリックされました")
         # 練習６
