@@ -20,10 +20,19 @@ def button_click(event):
         # 練習６
         entry.insert(tk.END, num)
 
-    
+
+
 # 練習１
+def enter_bg(event):     #マウスホバー時に色変更
+    event.widget["bg"] = "gray"
+def leave_bg(event):
+    event.widget["bg"] = "white"
+
+
 root = tk.Tk()
 root.geometry("400x600")
+root.configure(bg="snow3")#背景色変更
+
 
 # 練習４
 entry = tk.Entry(root, justify="right", width=10, font=("",40))
@@ -35,6 +44,8 @@ operatorsn =["7","8","9","4","5","6","1","2","3","0"]
 for num in operatorsn:
     button = tk.Button(root, text=f"{num}", width=4, height=2, font=("", 30),bg="white")
     button.grid(row=r, column=c)
+    button.bind("<Enter>",enter_bg)
+    button.bind("<Leave>",leave_bg)
     button.bind("<1>", button_click)
     c += 1
     if c%3 == 0:
@@ -44,8 +55,10 @@ for num in operatorsn:
 operators = ["+", "-","/","*","="]
 r,c=1,3
 for ope in operators:
-    button = tk.Button(root, text=f"{ope}", width=4, height=2, font=("", 30),bg="skyblue")
+    button = tk.Button(root, text=f"{ope}", width=4, height=2, font=("", 30),bg="white")
     button.grid(row=r, column=c)
+    button.bind("<Enter>",enter_bg)
+    button.bind("<Leave>",leave_bg)
     button.bind("<1>", button_click)
     if c%3==0:
         r+=1
@@ -53,8 +66,10 @@ for ope in operators:
 fanctions = ["AC"]
 r,c = 4,2
 for fnc in fanctions:
-    button = tk.Button(root, text=f"{fnc}", width=4, height=2, font=("", 30),bg="skyblue")
+    button = tk.Button(root, text=f"{fnc}", width=4, height=2, font=("", 30),bg="white")
     button.grid(row=r, column=c)
+    button.bind("<Enter>",enter_bg)
+    button.bind("<Leave>",leave_bg)
     button.bind("<1>", button_click)
     c += 1
 
