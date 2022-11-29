@@ -21,9 +21,9 @@ def button_click(event):
 
 
 # 練習１
-def enter_bg(event):     #マウスホバー時に色変更
+def enter_bg(event):     #マウスカーソルがボタンに重なった時に白色変更
     event.widget["bg"] = "gray"
-def leave_bg(event):
+def leave_bg(event):     #マウスカーソルがボタンから離れた時に白色に変更
     event.widget["bg"] = "white"
 
 
