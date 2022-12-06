@@ -39,7 +39,6 @@ def print_maze(maze_lst):
 
 #maze_makerテスト用
 if __name__ == "__main__":
-    
     root= tk.Tk()
 
     root.title("迷えるこうかとん")
@@ -49,6 +48,8 @@ if __name__ == "__main__":
     kokaton = tk.PhotoImage(file="fig/0.png")#こうかとんの写真
     cx,cy = 300,400
     canvas.create_image(cx, cy, image=kokaton, tag="kokaton")
+
+    key = ""
 
     maze = make_maze(15,9)
     print_maze(maze)
