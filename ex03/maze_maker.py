@@ -1,5 +1,5 @@
 import random
-import tkinter as tk
+import maze_maker
 
 def make_maze(yoko, tate):
     XP = [ 0, 1, 0, -1]
@@ -20,10 +20,12 @@ def make_maze(yoko, tate):
     return maze_lst
 
 def show_maze(canvas, maze_lst):
-    color = ["white", "gray"]
+    color = ["white", "RoyalBlue4"]
     for x in range(len(maze_lst)):
         for y in range(len(maze_lst[x])):
             canvas.create_rectangle(x*100, y*100, x*100+100, y*100+100, fill=color[maze_lst[x][y]])
+    #if maze_lst[x,y] == 1:
+        #color ["sea green","sea green"]
 
 #2次元リストを渡すとCUIで迷路を表示
 def print_maze(maze_lst):
@@ -39,19 +41,5 @@ def print_maze(maze_lst):
 
 #maze_makerテスト用
 if __name__ == "__main__":
-    root= tk.Tk()
-
-    root.title("迷えるこうかとん")
-    canvas = tk.Canvas(root,width=1500,height=900,bg="black")#キャンバス設定
-    canvas.pack()
-
-    kokaton = tk.PhotoImage(file="fig/0.png")#こうかとんの写真
-    cx,cy = 300,400
-    canvas.create_image(cx, cy, image=kokaton, tag="kokaton")
-
-    key = ""
-
     maze = make_maze(15,9)
     print_maze(maze)
-
-    root.mainloop()
