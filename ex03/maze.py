@@ -3,8 +3,7 @@ import maze_maker as mm
 import tkinter.messagebox as tkm
 
 def key_down(event):
-    global key
-    global tmr, start
+    global key, start
     key = event.keysym
     if not start:
         start=True #ゲームがスタートしたフラグ
