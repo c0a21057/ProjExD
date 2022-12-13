@@ -17,6 +17,11 @@ def check_bound(obj_rct, scr_rct):
 
 def main():
     clock =pg.time.Clock()
+    (x,y) = (900,400)
+    pg.init()
+    koka_sfc = pg.image.load("fig/6.png")            #こうかとんの画像
+    koka_sfc = pg.transform.rotozoom(koka_sfc,0,2.0) #画像を二倍
+
     # 練習１
     pg.display.set_caption("逃げろ！こうかとん")
     scrn_sfc = pg.display.set_mode((1600, 900))
@@ -24,53 +29,45 @@ def main():
     pgbg_sfc = pg.image.load("fig/pg_bg.jpg")
     pgbg_rct = pgbg_sfc.get_rect()
 
-    # 練習３
-    tori_sfc = pg.image.load("fig/6.png")
-    tori_sfc = pg.transform.rotozoom(tori_sfc, 0, 2.0)
-    tori_rct = tori_sfc.get_rect()
-    tori_rct.center = 900, 400
-    # scrn_sfcにtori_rctに従って，tori_sfcを貼り付ける
-    scrn_sfc.blit(tori_sfc, tori_rct) 
+    font = pg.font.Font(None,100)                     #画面に文字を表示
+    txt = font.render("Douge the bomb!",False,(0,0,0))
+
+ 
 
     # 練習５
-    bomb_sfc = pg.Surface((20, 20)) # 正方形の空のSurface
+    bomb_sfc = pg.Surface((60, 60)) # 正方形の空のSurface
     bomb_sfc.set_colorkey((0, 0, 0))
-    pg.draw.circle(bomb_sfc, (255, 0, 0), (10, 10), 10)
+
+    pg.draw.circle(bomb_sfc, (255, 0, 0), (30, 30), 30) #爆弾のサイズを大きくした
     bomb_rct = bomb_sfc.get_rect()
     bomb_rct.centerx = random.randint(0, scrn_rct.width)
     bomb_rct.centery = random.randint(0, scrn_rct.height)
-    scrn_sfc.blit(bomb_sfc, bomb_rct) 
-    vx, vy = +1, +1
+    scrn_sfc.blit(bomb_sfc, bomb_rct)
+    
+
+    vx, vy = +8, +8
 
     # 練習２
     while True:
+        pg.display.update()     #画面更新
+        pg.time.wait(1)         #更新時間間隔
+        koka_rct = scrn_sfc.blit(koka_sfc,(x,y)) #こうかとんの描画
         scrn_sfc.blit(pgbg_sfc, pgbg_rct) 
+        scrn_sfc.blit(koka_sfc, koka_rct)
 
         for event in pg.event.get():
+            #マウスポインタで画像移動
+            if event.type == pg.MOUSEMOTION:
+                x, y = event.pos
+                x -= int(koka_sfc.get_width() / 2) #こうかとんの真ん中にマウスカーソルがくる
+                y -= int(koka_sfc.get_height() / 2)
             if event.type == pg.QUIT:
-                return
+                sys.exit()
+            if event.type == pg.KEYDOWN:    #エスケープキーが押されたら終了
+                if event.key == pg.K_ESCAPE:
+                    sys.exit()
 
-        # 練習4
-        key_dct = pg.key.get_pressed() # 辞書型
-        if key_dct[pg.K_UP]:
-            tori_rct.centery -= 1
-        if key_dct[pg.K_DOWN]:
-            tori_rct.centery += 1
-        if key_dct[pg.K_LEFT]:
-            tori_rct.centerx -= 1
-        if key_dct[pg.K_RIGHT]:
-            tori_rct.centerx += 1
-        if check_bound(tori_rct, scrn_rct) != (+1, +1):
-            # どこかしらはみ出ていたら
-            if key_dct[pg.K_UP]:
-                tori_rct.centery += 1
-            if key_dct[pg.K_DOWN]:
-                tori_rct.centery -= 1
-            if key_dct[pg.K_LEFT]:
-                tori_rct.centerx += 1
-            if key_dct[pg.K_RIGHT]:
-                tori_rct.centerx -= 1            
-        scrn_sfc.blit(tori_sfc, tori_rct) 
+            
 
         # 練習６
         bomb_rct.move_ip(vx, vy)
@@ -79,9 +76,11 @@ def main():
         vx *= yoko
         vy *= tate
 
+        scrn_sfc.blit(txt,(10,10))
+
         #練習８
-        if tori_rct.colliderect(bomb_rct):
-            return #mainから出る
+        if koka_rct.colliderect(bomb_rct):
+            return#mainから出る
 
         pg.display.update()
         clock.tick(1000)
