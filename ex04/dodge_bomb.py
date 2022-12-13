@@ -17,7 +17,7 @@ def check_bound(obj_rct, scr_rct):
 
 def main():
     clock =pg.time.Clock()
-    (x,y) = (900,400)
+    x,y = 900,400
     koka_sfc = pg.image.load("fig/6.png")            #こうかとんの画像
     koka_sfc = pg.transform.rotozoom(koka_sfc,0,2.0) #画像を二倍
 
