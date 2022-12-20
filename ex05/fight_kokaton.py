@@ -3,8 +3,7 @@ import random
 import sys
 
 img_weapon = pg.image.load("shot.gif") 
-bx = 0 #弾のX座標
-by = 0 #弾のY座標
+bx ,by = 0 ,0#弾のX,Y座標
 space = 0
 BULLET_MAX = 10 #弾の最大値
 bull_n = 0
